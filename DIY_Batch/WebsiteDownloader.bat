@@ -1,0 +1,24 @@
+@echo off
+setlocal enabledelayedexpansion
+
+REM Prompt for the URL
+set /p inputURL=Enter URL please: 
+
+REM Optional: Strip surrounding quotes if pasted
+set inputURL=%inputURL:"=%
+
+REM Run wget to mirror the website into current folder
+wget ^
+    --mirror ^
+    --convert-links ^
+    --adjust-extension ^
+    --page-requisites ^
+    --no-parent ^
+    "%inputURL%"
+
+REM Play a sound
+powershell -c "(New-Object Media.SoundPlayer 'C:\Windows\Media\notify.wav').PlaySync();"
+
+echo.
+echo Download complete. Press any key to exit.
+pause >nul
